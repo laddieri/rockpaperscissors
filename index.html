@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Basic HTML</title>
+</head>
+<body>
+
+  <script>
+    function computerPlay(){
+
+      let min = 1;
+      let max = 4;
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      let choiceNumber = Math.floor(Math.random() * (max - min)) + min;
+
+      switch (choiceNumber) {
+        case 1:
+          return "rock"
+          break;
+        case 2:
+          return "paper"
+          break;
+        case 3:
+          return "scissors"
+          break;
+      }
+    }
+
+    function playRound(playerInput, computerInput){
+      let lowerCasePlayerInput = playerInput.toLowerCase();
+
+      if (lowerCasePlayerInput==="rock") {
+        if (computerInput==="rock"){
+          return "Rock equals Rock. It's a tie!";
+        } else if (computerInput==="paper"){
+          return "Rock is covered by paper. You Lose!";
+        } else {
+          return "Rock crushes scissors. You Win!";
+        }
+      } else if (lowerCasePlayerInput==="paper") {
+        if (computerInput==="rock"){
+          return "Paper covers Rock. You win!";
+        } else if (computerInput==="paper"){
+          return "Paper equals Paper. It's a tie!";
+        } else {
+          return "Paper is cut by scissors. You Lose!";
+        }
+      } else if (lowerCasePlayerInput==="scissors") {
+        if (computerInput==="rock"){
+          return "Scissors are crusehd by rock. You Lose!";
+        } else if (computerInput==="paper"){
+          return "Scissors cut paper. You Win!";
+        } else {
+          return "Scissors equal scissors. It's a tie!";
+          }
+        }
+        else {
+          return "You must pick 'rock', 'paper' or 'scissors.' You Lose!";
+        }
+      }
+
+      function game () {
+        let playerScore = 0;
+        let computerScore = 0;
+
+        for (let playCount = 0; playCount < 5; playCount++){
+          let choice = prompt("Select rock, paper, or scissors.")
+          let playMessage = playRound(choice,computerPlay());
+          let scoreMessage = playMessage.slice(playMessage.length - 3);
+
+          console.log("Round " + (playCount + 1) + " " + playMessage);
+
+          if (scoreMessage === "se!"){
+            computerScore++;
+          } else if (scoreMessage==="in!") {
+            playerScore++;
+          } else {}
+          console.log("Current score is player: " + playerScore + ", computer: " + computerScore);
+        }
+
+        if (playerScore > computerScore) {
+          console.log("YOU WIN!");
+        } else {
+          console.log("YOU LOSE!");
+        }
+      }
+
+      game();
+
+  </script>
+</body>
+</html>
