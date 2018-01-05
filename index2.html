@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Basic HTML</title>
+</head>
+<body>
+
+  <button id="rockButton">Rock</button>
+  <button id="paperButton">Paper</button>
+  <button id="scissorsButton">Scissors</button>
+
+  <div id="scoreContent">
+
+
+  </div>
+
+  <script>
+
+
+    function computerPlay(){
+      let min = 1;
+      let max = 4;
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      let choiceNumber = Math.floor(Math.random() * (max - min)) + min;
+
+      switch (choiceNumber) {
+        case 1:
+          return "rock"
+          break;
+        case 2:
+          return "paper"
+          break;
+        case 3:
+          return "scissors"
+          break;
+      }
+    }
+
+    function playRound(playerInput, computerInput){
+      let lowerCasePlayerInput = playerInput.toLowerCase();
+
+      if (lowerCasePlayerInput==="rock") {
+        if (computerInput==="rock"){
+          return "Rock equals Rock. It's a tie!";
+        } else if (computerInput==="paper"){
+          return "Rock is covered by paper. You Lose!";
+        } else {
+          return "Rock crushes scissors. You Win!";
+        }
+      } else if (lowerCasePlayerInput==="paper") {
+        if (computerInput==="rock"){
+          return "Paper covers Rock. You win!";
+        } else if (computerInput==="paper"){
+          return "Paper equals Paper. It's a tie!";
+        } else {
+          return "Paper is cut by scissors. You Lose!";
+        }
+      } else if (lowerCasePlayerInput==="scissors") {
+        if (computerInput==="rock"){
+          return "Scissors are crusehd by rock. You Lose!";
+        } else if (computerInput==="paper"){
+          return "Scissors cut paper. You Win!";
+        } else {
+          return "Scissors equal scissors. It's a tie!";
+          }
+        }
+        else {
+          return "You must pick 'rock', 'paper' or 'scissors.' You Lose!";
+        }
+
+      }
+
+      let playerSelection;
+      let scoreMessage;
+      let playCount=0;
+      let playerScore = 0;
+      let computerScore = 0;
+
+      const scoreContent = document.querySelector('#scoreContent');
+
+      const messageDiv = document.createElement('div');
+      messageDiv.textContent = "Click a button to play!";
+      scoreContent.appendChild(messageDiv);
+
+      const roundDiv = document.createElement('div');
+      roundDiv.textContent = "Round 0";
+      scoreContent.appendChild(roundDiv);
+
+      const playerScoreDiv = document.createElement('div');
+      playerScoreDiv.textContent = "0";
+      scoreContent.appendChild(playerScoreDiv);
+
+      const computerScoreDiv = document.createElement('div');
+      computerScoreDiv.textContent = "0";
+      scoreContent.appendChild(computerScoreDiv);
+
+      const winMessage = document.createElement("h1");
+      winMessage.textContent = "";
+      scoreContent.appendChild(winMessage);
+
+      const buttons= document.querySelectorAll('button');
+      buttons.forEach((button) => {
+        button.addEventListener('click',(e) =>{
+          winMessage.textContent="";
+          playerSelection = e.srcElement.outerText;
+          let playMessage = playRound(playerSelection,computerPlay());
+          let scoreMessage = playMessage.slice(playMessage.length - 3);
+          if (scoreMessage === "se!"){
+            computerScore++;
+          } else if (scoreMessage==="in!") {
+            playerScore++;
+          } else {};
+          if (playCount===5){
+
+            if (playerScore > computerScore) {
+                winMessage.textContent = "YOU WIN! Click a button to play again!"
+            };
+            playCount=0;playerScore=0;computerScore=0;
+          }
+
+          playCount++;
+
+          // scoreContent.textContent = playMessage;
+          messageDiv.textContent = playMessage;
+          playerScoreDiv.textContent = `Player Score: ${playerScore}`;
+          computerScoreDiv.textContent = `Computer Score: ${computerScore}`;
+          roundDiv.textContent = `Round: ${playCount}`;
+        })
+      });
+
+  </script>
+</body>
+</html>
